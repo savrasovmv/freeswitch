@@ -1,0 +1,30 @@
+<include>
+  <context name="default">
+<!--
+    <extension name="unloop">
+      <condition field="${unroll_loops}" expression="^true$"/>
+      <condition field="${sip_looped_call}" expression="^true$">
+	<action application="deflect" data="${destination_number}"/>
+      </condition>
+    </extension>
+-->
+     <extension name="1000">
+        <condition field="destination_number" expression="^1000$">
+            <action application="bridge" data="sofia/internal/1000@192.168.1.8"/> 
+       </condition>
+    </extension>
+
+     <extension name="Internal calls">
+        <condition field="destination_number" expression="^(10\d{2})$">
+            <action application="bridge" data="user/destination_number"/> 
+       </condition>
+    </extension>
+
+    <extension name="sample">
+      <condition>
+        <action application="info"/>
+      </condition>
+    </extension>
+
+  </context>
+</include>

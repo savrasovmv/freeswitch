@@ -34,6 +34,8 @@
     <!-- File Format Interfaces -->
     <load module="mod_sndfile"/>
     <load module="mod_native_file"/>
+    <load module="mod_local_stream"/> <!-- Настройка в  local_stream.conf.xml -->
+
 
     <!-- Third party modules -->
 

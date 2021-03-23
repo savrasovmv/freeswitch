@@ -10,6 +10,7 @@
 
     <!-- Event Handlers -->
     <load module="mod_cdr_csv"/>
+    <load module="mod_cdr_pg_csv"/>
     <load module="mod_event_socket"/>
 
     <!-- Endpoints -->
@@ -21,6 +22,7 @@
     <load module="mod_commands"/>
     <load module="mod_conference"/>
     <load module="mod_db"/>
+    <!-- <load module="mod_pgsql"/> -->
     <load module="mod_dptools"/>
     <load module="mod_expr"/>
     <load module="mod_hash"/>
@@ -35,6 +37,9 @@
     <load module="mod_sndfile"/>
     <load module="mod_native_file"/>
     <load module="mod_local_stream"/> <!-- Настройка в  local_stream.conf.xml -->
+
+    <!-- Languages -->
+    <load module="mod_lua"/>
 
 
     <!-- Third party modules -->

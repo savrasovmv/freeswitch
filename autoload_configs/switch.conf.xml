@@ -13,5 +13,11 @@
     <!-- RTP port range -->
     <param name="rtp-start-port" value="16384"/>
     <param name="rtp-end-port" value="32768"/>
+    <!-- PG connect -->
+    <param name="auto-create-schemas" value="true"/>
+    <param name="auto-clear-sql" value="true"/>
+
+    <param name="core-db-dsn" value="pgsql://hostaddr=127.0.0.1 dbname=freeswitch  user=freeswitch password='freeswitch' options='-c client_min_messages=NOTICE'" />
+
   </settings>
 </configuration>

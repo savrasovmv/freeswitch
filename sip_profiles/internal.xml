@@ -17,6 +17,6 @@
     <param name="sip-port" value="$${internal_sip_port}"/>
     
     <!-- PG connect -->
-    <param name="odbc-dsn" value="pgsql://hostaddr=127.0.0.1 dbname=freeswitch  user=freeswitch password='freeswitch'"/>
+    <param name="odbc-dsn" value="pgsql://hostaddr=$${pg_host} dbname=$${pg_db}  user=$${pg_user} password=$${pg_password}"/>
   </settings>
 </profile>

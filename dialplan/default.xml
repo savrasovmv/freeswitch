@@ -22,6 +22,18 @@
 	</condition>
     </extension>
 
+    <extension name="Group call">
+       <condition field="destination_number" expression="1100">
+         <action application="set" data="hangup_after_bridge=true"/>
+         <action application="set" data="continue_on_fail=true"/>
+         <action application="set" data="originate_continue_on_timeout=true"/>
+         <action application="set" data="call_timeout=15"/>
+         <action application="bridge" data="${group_call(1100@${domain_name}+A)}"/>
+         
+         <action application="hangup"/>
+       </condition>
+     </extension>
+
      <extension name="Internal calls">
         <condition field="destination_number" expression="^(10\d{2})$">
             <action application="bridge" data="user/$1@$${domain_name}"/> 

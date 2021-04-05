@@ -10,9 +10,9 @@
     <X-PRE-PROCESS cmd="include" data="dialplan/*.xml"/>
   </section>
 
-  <section name="directory" description="User Directory">
-    <X-PRE-PROCESS cmd="include" data="directory/*.xml"/>
-  </section>
+  <!-- <section name="directory" description="User Directory">
+    <z-PRE-PROCESS cmd="include" data="directory/*.xml"/>
+  </section> -->
 
 <!-- languages section (under development still) -->
   <section name="languages" description="Language Management">

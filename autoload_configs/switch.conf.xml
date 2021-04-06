@@ -3,7 +3,7 @@
     <param name="colorize-console" value="true"/>
 
     <!-- Max number of sessions to allow at any given time -->
-    <param name="max-sessions" value="1000"/>
+    <param name="max-sessions" value="5000"/>
     <!--Most channels to create per second -->
     <param name="sessions-per-second" value="30"/>
 

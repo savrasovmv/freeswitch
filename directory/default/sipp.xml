@@ -1,0 +1,17 @@
+<include>
+  <user id="sipp" >
+    <params>
+<param name="auth-acl" value="192.168.1.0/24"/>
+    </params>
+    <variables>
+      <variable name="toll_allow" value="domestic,international,local"/>
+      <variable name="accountcode" value="sipp"/>
+      <variable name="user_context" value="simple"/>
+      <variable name="effective_caller_id_name" value="sipp"/>
+      <variable name="effective_caller_id_number" value="sipp"/>
+      <variable name="outbound_caller_id_name" value="$${outbound_caller_name}"/>
+      <variable name="outbound_caller_id_number" value="$${outbound_caller_id}"/>
+      <variable name="callgroup" value="support"/>
+    </variables>
+  </user>
+</include>

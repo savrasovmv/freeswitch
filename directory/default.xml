@@ -76,6 +76,14 @@
 	  <user id="1014" type="pointer"/>
 	</users>
       </group>
+
+     <group name="group_1200">
+	<users>
+	  <user id="1018" type="pointer"/>
+	  <user id="user2" type="pointer"/>
+	 
+	</users>
+      </group>
     </groups>
 
   </domain>

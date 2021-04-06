@@ -2,6 +2,7 @@
   <global_settings>
     <param name="log-level" value="0"/>
     <param name="tracelevel" value="DEBUG"/>
+    <param name = "auto-restart" value = "false" />
   </global_settings>
 
   <profiles>

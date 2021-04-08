@@ -24,11 +24,13 @@
           <action application="lua" data="test3.lua"/>
       </condition>
      </extension>
-    <extension name="Simple Lua Test2">
-      <condition field="destination_number" expression="^(11\d{2})$">
+    <extension name="Local call">
+      <condition field="destination_number" expression="^(10\d{2})$">
           <action application="set" data="hangup_after_bridge=true"/>
           <action application="set" data="continue_on_fail=true"/>
           <action application="set" data="ignore_early_media=true"/>
+          <action application="set" data="initial_callee_id_name=${user_data(${dialed_extension}@${domain_name} var effective_caller_id_name)}"/> 
+	        <action application="set" data="effective_caller_id_number=${user_data(${caller_id_number}@${domain_name} var effective_caller_id_number)}"/>
           <action application="lua" data="test3.lua"/>
       </condition>
 

@@ -1,7 +1,7 @@
 <profile name="internal">
   <settings>
   <!-- Заменить на true для продакшена -->
-    <param name="auth-calls" value="false"/>
+    <param name="auth-calls" value="true"/>
     <param name="apply-nat-acl" value="nat.auto"/>
 
     <param name="debug" value="0"/>

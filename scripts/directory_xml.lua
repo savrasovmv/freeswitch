@@ -67,14 +67,16 @@ end
 
 if req_action == 'user_call' or req_action == 'sip_auth' then
   local dir_query = string.format([[SELECT *, 
+                                          us.name as name,
                                           dom.name as domain, 
                                           con.name as user_context, 
-                                          us.name as callgroup 
+                                          us.name as username 
                                   FROM web_directory as dir 
                                   LEFT JOIN web_users as us ON us.id=dir.users_id 
                                   LEFT JOIN web_domain as dom ON dom.id=us.domain_id 
                                   LEFT JOIN web_context as con ON con.id=us.context_id 
-                                  where dom.name = '%s' and dir.regname='%s' limit 1]], req_domain, req_user)
+                                  WHERE dom.name = '%s' and dir.regname='%s' and us.isdisable=false
+                                  LIMIT 1]], req_domain, req_user)
   freeswitch.consoleLog("notice", "++++++++ dir_query \n" .. dir_query .. "\n")
   
   assert (dbh:query(dir_query, function(u)
@@ -95,11 +97,11 @@ if req_action == 'user_call' or req_action == 'sip_auth' then
       <variable name="toll_allow" value="]] .. u.toll_allow .. [["/>
             <variable name="user_context" value="]] .. u.user_context .. [["/>
       <variable name="default_gateway" value="]] .. u.default_gateway .. [["/>
-      <variable name="effective_caller_id_name" value="]] .. u.effective_caller_id_name .. [["/>
-      <variable name="effective_caller_id_number" value="]] .. u.effective_caller_id_number .. [["/>
+      <variable name="effective_caller_id_name" value="]] .. u.username .. [["/>
+      <variable name="effective_caller_id_number" value="]] .. u["number-alias"] .. [["/>
       <variable name="outbound_caller_id_name" value="]] .. u.outbound_caller_id_name .. [["/>
       <variable name="outbound_caller_id_number" value="]] .. u.outbound_caller_id_number .. [["/>
-            <variable name="callgroup" value="]] .. u.callgroup .. [["/>
+            <variable name="callgroup" value="]] .. u.username .. [["/>
           
           </variables>
         </user>

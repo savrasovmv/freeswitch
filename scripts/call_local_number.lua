@@ -48,18 +48,27 @@ end
 
 
 
+-- local sql_query = string.format([[  SELECT
+--                                         dir.regname 
+--                                     FROM web_directory as dir 
+--                                     LEFT JOIN web_users as us on us.id=dir.users_id 
+--                                     LEFT JOIN web_domain as dom ON dom.id=us.domain_id 
+--                                     LEFT JOIN web_context as con ON con.id=us.context_id 
+--                                     WHERE dom.name = '%s' and us."number-alias"='%s'
+--                                     ]], req_domain, req_user)
+
 local sql_query = string.format([[  SELECT
-                                        dir.regname 
-                                    FROM web_directory as dir 
-                                    LEFT JOIN web_users as us on us.id=dir.users_id 
-                                    LEFT JOIN web_domain as dom ON dom.id=us.domain_id 
-                                    LEFT JOIN web_context as con ON con.id=us.context_id 
-                                    WHERE dom.name = '%s' and us."number-alias"='%s'
-                                    ]], req_domain, req_user)
+                                            dir.regname
+                                        FROM web_directory as dir 
+                                        LEFT JOIN web_users as us on us.id=dir.users_id 
+                                        LEFT JOIN web_domain as dom ON dom.id=us.domain_id 
+                                        LEFT JOIN web_context as con ON con.id=us.context_id 
+                                        WHERE dom.name = '%s' and us."number-alias"='%s' and us.isdisable=false
+                                    ]], req_domain, req_user)                                    
 assert(
   dbh:query(sql_query, getgroup),
 
-  freeswitch.consoleLog("WARNING", "Ошибка запроса " .. sql_query .. "\n")
+  freeswitch.consoleLog("WARNING", "Запрос " .. sql_query .. "\n")
 )
 freeswitch.consoleLog("WARNING", "users: " .. users .. "\n")
 --local row = getgroup()
@@ -71,6 +80,7 @@ if (users=='') then
 
 else
     freeswitch.consoleLog("WARNING", "users==not NULLL \n")
+    session:setVariable("effective_caller_id_name", "Группа");
     session:execute("bridge", users);
 end
 --session:execute("bridge", "user/1019@192.168.1.8,user/user2@192.168.1.8");

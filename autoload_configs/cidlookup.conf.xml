@@ -1,0 +1,47 @@
+<configuration name="cidlookup.conf" description="cidlookup Configuration">
+	<settings>
+		<!-- Кэшируем запрашиваемые данные. -->
+		<param name="cache" value="true"/>
+		<!-- Время жизни записи в кэше - сутки. -->
+		<param name="cache-expire" value="86400"/>
+ 
+		<!--
+			Строка подключения. Особое внимание на 3 (ТРИ, Карл!) слэша в
+			начале строки. Всё именно так, иначе работать не будет, я
+			проверил. Путь должен быть абсолютным, с относительным база не
+			подключалась.
+		-->
+		<param name="odbc-dsn" value="pgsql://hostaddr=$${pg_host} dbname=$${pg_db}  user=$${pg_user} password=$${pg_password}"/>
+ 
+		<!--
+			Запрос на извлечение данных. Принимает подстановочный параметр с
+			номером телефона. Запрос обязательно должен возвращать одну
+			строку. coalesce возвращает результат запроса который вернул результат.
+            Поиск идет вначале по Юзерам, потом по Группам, затем по Конференциям
+		-->
+		<param name="sql" value="
+            select coalesce(
+                (  
+                    SELECT 
+                        name || ' (${caller_id_number}) ' || ldap_title as name 
+                    FROM web_users 
+                    WHERE &quot;number-alias&quot;='${caller_id_number}' 
+                    LIMIT 1
+                ),
+                (   SELECT 
+                        name
+                    FROM web_callgroup 
+                    WHERE number='${caller_id_number}' 
+                    LIMIT 1
+                ),
+                (   SELECT 
+                        name
+                    FROM web_conference 
+                    WHERE number='${caller_id_number}' 
+                    LIMIT 1
+                ),
+                
+                '${caller_id_number}')
+		"/>
+	</settings>
+</configuration>

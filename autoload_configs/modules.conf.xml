@@ -28,6 +28,10 @@
     <load module="mod_hash"/>
     <load module="mod_esf"/>
 
+    <!-- Авто определение набранного номера -->
+    <load module="mod_cidlookup"/>
+    <load module="mod_memcache"/>
+
     <!-- Dialplan Interfaces -->
     <load module="mod_dialplan_xml"/>
 
@@ -37,6 +41,7 @@
     <load module="mod_sndfile"/>
     <load module="mod_native_file"/>
     <load module="mod_local_stream"/> <!-- Настройка в  local_stream.conf.xml -->
+     <load module="mod_tone_stream"/>
 
     <!-- Languages -->
     <load module="mod_lua"/>

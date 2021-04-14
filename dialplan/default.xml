@@ -56,6 +56,7 @@
           <action application="set" data="hangup_after_bridge=true"/>
           <action application="set" data="continue_on_fail=true"/>
           <action application="set" data="ignore_early_media=true"/>
+          <!-- <action application="record_session" data="$${recordings_dir}/${strftime(%Y-%m-%d-%H-%M-%S)}_${destination_number}_${caller_id_number}.wav"/> -->
           <!-- <action application="set" data="initial_callee_id_name=${cidlookup($1)}"/> -->
           <!-- <action application="set" data="initial_callee_id_number=${dialed_extension}"/> -->
           <!-- <action application="set" data="initial_callee_id_name=${user_data(${dialed_extension}@${domain_name} var effective_caller_id_name)}"/> 
@@ -78,11 +79,11 @@
 
     <extension name="nb_conferences">
       <condition field="destination_number" expression="^(15\d{2})$">
-        <action application="answer"/>
+        <action application="lua" data="conference.lua"/>
+        <!-- <action application="answer"/>
 
-        <!-- <action application="set" data="pin=12345"/> -->
         <action application="set" data="conference_auto_outcall_timeout=5"/>
-        <!-- <action application="set" data="conference_utils_auto_outcall_flags=mute"/> -->
+        <action application="set" data="conference_utils_auto_outcall_flags=mute"/> 
         <action application="set" data="conference_auto_outcall_caller_id_name='Тестовая конференция'"/>
         <action application="set" data="conference_auto_outcall_caller_id_number='1500'"/>
         <action application="set" data="conference_auto_outcall_profile=default"/>
@@ -92,7 +93,7 @@
         <action application="conference_set_auto_outcall" data="user/1026tel@$${domain}"/>
         <action application="conference_set_auto_outcall" data="user/1027rc@$${domain}"/> 
         <action application="conference_set_auto_outcall" data="user/1025rc@$${domain}"/> 
-        <action application="conference" data="$1-${domain_name}@default+12345"/>
+        <action application="conference" data="$1-${domain_name}@default+12345"/> -->
       </condition>
     </extension>
 

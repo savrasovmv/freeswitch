@@ -80,7 +80,7 @@ if (users=='') then
 
 else
     freeswitch.consoleLog("WARNING", "users==not NULLL \n")
-    session:setVariable("effective_caller_id_name", "Группа");
+    --session:setVariable("initial_callee_id_name", "Проверка");
     session:execute("bridge", users);
 end
 --session:execute("bridge", "user/1019@192.168.1.8,user/user2@192.168.1.8");

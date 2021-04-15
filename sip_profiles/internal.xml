@@ -5,7 +5,9 @@
     <param name="apply-nat-acl" value="nat.auto"/>
 
     <param name="debug" value="0"/>
-    <param name="sip-trace" value="yes"/>
+    <!-- Включить в лог sip пакеты -->
+    <!-- <param name="sip-trace" value="yes"/> -->
+    <param name="sip-trace" value="no"/>
 
     <param name="dialplan" value="XML"/>
     <param name="context" value="default"/>

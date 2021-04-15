@@ -56,30 +56,32 @@
           <action application="set" data="hangup_after_bridge=true"/>
           <action application="set" data="continue_on_fail=true"/>
           <action application="set" data="ignore_early_media=true"/>
+          <!-- Запись разговора поле ответа -->
+          <!-- <action application="set" data="media_bug_answer_req=true"/>  -->
           <!-- <action application="record_session" data="$${recordings_dir}/${strftime(%Y-%m-%d-%H-%M-%S)}_${destination_number}_${caller_id_number}.wav"/> -->
           <!-- <action application="set" data="initial_callee_id_name=${cidlookup($1)}"/> -->
           <!-- <action application="set" data="initial_callee_id_number=${dialed_extension}"/> -->
           <!-- <action application="set" data="initial_callee_id_name=${user_data(${dialed_extension}@${domain_name} var effective_caller_id_name)}"/> 
 	        <action application="set" data="effective_caller_id_number=${user_data(${caller_id_number}@${domain_name} var effective_caller_id_number)}"/> -->
-          <action application="lua" data="call_local_number.lua"/>
+          <action application="lua" data="$${lua_scripts_dir}/call_local_number.lua"/>
       </condition>
 
     </extension>
     <extension name="Call group">
-      <condition field="destination_number" expression="^(99|88\d{2})$">
+      <condition field="destination_number" expression="^(99\d{2}|88\d{2})$">
           <action application="set" data="hangup_after_bridge=true"/>
           <action application="set" data="continue_on_fail=true"/>
           <action application="set" data="ignore_early_media=true"/>
           <!-- <action application="set" data="initial_callee_id_name=${user_data(${dialed_extension}@${domain_name} var effective_caller_id_name)}"/> 
 	        <action application="set" data="effective_caller_id_number=${user_data(${caller_id_number}@${domain_name} var effective_caller_id_number)}"/> -->
-          <action application="lua" data="call_local_groupcall.lua"/>
+          <action application="lua" data="$${lua_scripts_dir}/call_local_groupcall.lua"/>
       </condition>
 
     </extension>
 
     <extension name="nb_conferences">
       <condition field="destination_number" expression="^(15\d{2})$">
-        <action application="lua" data="conference.lua"/>
+        <action application="lua" data="$${lua_scripts_dir}/conference.lua"/>
         <!-- <action application="answer"/>
 
         <action application="set" data="conference_auto_outcall_timeout=5"/>

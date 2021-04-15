@@ -1,11 +1,15 @@
 --Модуль подключения к БД
 local db = {}
 
-local pg_host   = session:getVariable("pg_host");
-local pg_db   = session:getVariable("pg_db");
-local pg_user   = session:getVariable("pg_user");
-local pg_password   = session:getVariable("pg_password");
+-- local pg_host   = session:getVariable("pg_host");
+-- local pg_db   = session:getVariable("pg_db");
+-- local pg_user   = session:getVariable("pg_user");
+-- local pg_password   = session:getVariable("pg_password");
 
+local pg_host   = freeswitch.getGlobalVariable("pg_host");
+local pg_db   = freeswitch.getGlobalVariable("pg_db");
+local pg_user   = freeswitch.getGlobalVariable("pg_user");
+local pg_password   = freeswitch.getGlobalVariable("pg_password");
 
 local dbh = freeswitch.Dbh("odbc://freeswitch:freeswitch:freeswitch")
 

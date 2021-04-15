@@ -1,6 +1,8 @@
 <configuration name="lua.conf" description="LUA Configuration">
   <settings>
-    <param name="xml-handler-script" value="/usr/share/freeswitch/scripts/directory_xml.lua"/>
+    <param name="module-directory" value="$${lua_scripts_dir}/?.lua"/>
+    <param name="script-directory" value="$${lua_scripts_dir}/?.lua"/>
+    <param name="xml-handler-script" value="$${lua_scripts_dir}/directory_xml.lua"/>
     <param name="xml-handler-bindings" value="directory"/>
 	
   </settings>

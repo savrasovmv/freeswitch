@@ -1,61 +1,30 @@
--- test3.lua
--- Answer call, play a prompt, hang up
--- Set the path separator
+-- Скрипт обрабатыват групповые вызовы
+
+local records = require("records")
+
 pathsep = '/'
--- Windows users do this instead:
--- pathsep = ''
--- Answer the call
-freeswitch.consoleLog("WARNING","Вызов группы")
---session:answer()
---freeswitch.consoleLog("WARNING","Already answeredn")
--- Create a string with path and filename of a sound file
---prompt ="ivr" ..pathsep .."ivr-welcome_to_freeswitch.wav"
--- Play the prompt
---freeswitch.consoleLog("WARNING","About to play '" .. prompt .."'n")
---freeswitch.consoleLog("WARNING",session:serialize())
---session:streamFile(prompt)
---session:execute("playback", "local_stream://moh");
---session:execute("bridge", "user/1000@192.168.1.8");
+freeswitch.consoleLog("notice","Вызов группы")
 
-local req_user   = session:getVariable("destination_number");
+local req_destination_number   = session:getVariable("destination_number");
 local req_domain   = session:getVariable("domain");
-freeswitch.consoleLog("WARNING", "req_user: " .. req_user .. "\n")
-freeswitch.consoleLog("WARNING", "req_domain: " .. req_domain .. "\n")
+freeswitch.consoleLog("DEBUG", "req_destination_number: " .. req_destination_number .. "\n")
+freeswitch.consoleLog("DEBUG", "req_domain: " .. req_domain .. "\n")
 
+local db = require("db")
+dbh = db.connect()
 
-local dbh = freeswitch.Dbh("odbc://freeswitch:freeswitch:freeswitch")
-if dbh:connected() == false then
-  freeswitch.consoleLog("WARNING", "lua cannot connect to database \n")
-  return
-else
-  freeswitch.consoleLog("WARNING", "++++++++ CONNECT TO PG \n")
-end
 local users = ''
+
+--Функция формирует строку для bridge вида user/1019rc@192.168.1.8,user/1019tel@192.168.1.8
 function getgroup(row)
-    freeswitch.consoleLog("WARNING", "1111  getgroup \n")
-    
     for col, val in pairs(row) do
-      freeswitch.consoleLog("WARNING", "val:" .. val .. "\n")
       if (users~='') then
         users =  users ..","
       end
       users =  users .. "user/" ..val .. "@" .. req_domain
       row[col] = val
     end
-   
-  
 end
-
-
-
--- local sql_query = string.format([[  SELECT
---                                         dir.regname 
---                                     FROM web_directory as dir 
---                                     LEFT JOIN web_users as us on us.id=dir.users_id 
---                                     LEFT JOIN web_domain as dom ON dom.id=us.domain_id 
---                                     LEFT JOIN web_context as con ON con.id=us.context_id 
---                                     WHERE dom.name = '%s' and us."number-alias"='%s' and us.isdisable=false
---                                     ]], req_domain, req_user)
 
 local sql_query = string.format([[  SELECT 
                                             dir.regname
@@ -63,47 +32,27 @@ local sql_query = string.format([[  SELECT
                                         LEFT JOIN web_callgroup as cg ON cgl.callgroup_id=cg.id
                                         LEFT JOIN web_users as us ON us."number-alias"=cgl."number-alias"
                                         LEFT JOIN web_directory as dir ON dir.users_id=us.id
-                                        WHERE cg.number='%s' and us.isdisable=false
-                                    ]], req_user)   
--- local sql_query_group_name = string.format([[  SELECT 
---                                                     cg.name
---                                                 FROM web_callgroup as cg
---                                                 WHERE cg.number='%s'
---                                                 LIMIT 1
---                                             ]], req_user)                                 
-assert(
-  dbh:query(sql_query, getgroup),
+                                        LEFT JOIN web_domain as dom ON dom.id=us.domain_id
+                                        WHERE dom.name = '%s' and cg.number='%s' and us.isdisable=false
+                                    ]], req_domain, req_destination_number
+)   
+                                    
+assert(dbh:query(sql_query, getgroup))
 
-  freeswitch.consoleLog("WARNING", "Запрос " .. sql_query .. "\n")
-)
+freeswitch.consoleLog("DEBUG", "users: " .. users .. "\n")
 
--- local group_name =''
--- assert(
---   dbh:query(sql_query_group_name, function(row)
---     group_name = row.name
-
-  
---     freeswitch.consoleLog("WARNING", "Запрос " .. sql_query_group_name .. "\n")
---   end)
--- )
-freeswitch.consoleLog("WARNING", "users: " .. users .. "\n")
---local row = getgroup()
+-- Если группа не найдена говорим что не существует, иначе вызываем абонентов группы
 if (users=='') then
-    freeswitch.consoleLog("WARNING", "users==NULLL \n")
+  freeswitch.consoleLog("DEBUG", "Группа с номером "..req_destination_number.." не найдена \n")
     session:answer()
     prompt ="ivr" ..pathsep .."ivr-you_have_dialed_an_invalid_extension.wav"
     session:streamFile(prompt)
 
 else
-    -- if (group_name~='') then
-    --   session:setVariable("caller-id-name", group_name);
-    -- end
-    freeswitch.consoleLog("WARNING", "users==not NULLL \n")
-    
-    session:execute("bridge", users);
+  freeswitch.consoleLog("DEBUG", "Вызов абонентов группы по номерам: "..users.."\n")
+  records.rec() --Запись разговоров, если включена у абонента
+  session:execute("bridge", users);
 end
---session:execute("bridge", "user/1019@192.168.1.8,user/user2@192.168.1.8");
---freeswitch.consoleLog("WARNING","After playing '" .. prompt .."'n")
--- Hangup
+
 session:hangup()
-freeswitch.consoleLog("WARNING","Afterhangupn")
+freeswitch.consoleLog("notice","Конец Вызов группы")

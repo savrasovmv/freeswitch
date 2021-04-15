@@ -48,9 +48,10 @@
       <!-- Name of the caller control group to use for the moderator in this profile -->
       <!-- <param name="moderator-controls" value="some name"/> -->
       <!-- TTS Engine to use -->
-      <!--<param name="tts-engine" value="cepstral"/>-->
+      <!-- <param name="tts-engine" value="cepstral"/> -->
       <!-- TTS Voice to use -->
-      <!--<param name="tts-voice" value="david"/>-->
+      <!-- <param name="tts-voice" value="david"/> -->
+      <!-- <param name="announce-count" value="0"/> -->
 
       <!-- If TTS is enabled all audio-file params beginning with -->
       <!-- 'say:' will be considered text to say with TTS -->

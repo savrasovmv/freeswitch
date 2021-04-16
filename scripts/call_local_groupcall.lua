@@ -7,8 +7,8 @@ freeswitch.consoleLog("notice","Вызов группы")
 
 local req_destination_number   = session:getVariable("destination_number");
 local req_domain   = session:getVariable("domain");
-freeswitch.consoleLog("DEBUG", "req_destination_number: " .. req_destination_number .. "\n")
-freeswitch.consoleLog("DEBUG", "req_domain: " .. req_domain .. "\n")
+freeswitch.consoleLog("INFO", "req_destination_number: " .. req_destination_number .. "\n")
+freeswitch.consoleLog("INFO", "req_domain: " .. req_domain .. "\n")
 
 local db = require("db")
 dbh = db.connect()
@@ -39,18 +39,19 @@ local sql_query = string.format([[  SELECT
                                     
 assert(dbh:query(sql_query, getgroup))
 
-freeswitch.consoleLog("DEBUG", "users: " .. users .. "\n")
+freeswitch.consoleLog("INFO", "users: " .. users .. "\n")
 
 -- Если группа не найдена говорим что не существует, иначе вызываем абонентов группы
 if (users=='') then
-  freeswitch.consoleLog("DEBUG", "Группа с номером "..req_destination_number.." не найдена \n")
+  freeswitch.consoleLog("INFO", "Группа с номером "..req_destination_number.." не найдена \n")
     session:answer()
     prompt ="ivr" ..pathsep .."ivr-you_have_dialed_an_invalid_extension.wav"
     session:streamFile(prompt)
 
 else
-  freeswitch.consoleLog("DEBUG", "Вызов абонентов группы по номерам: "..users.."\n")
+  freeswitch.consoleLog("INFO", "Вызов абонентов группы по номерам: "..users.."\n")
   records.rec() --Запись разговоров, если включена у абонента
+  records.rec_group() --Запись разговоров, если включена у группы
   session:execute("bridge", users);
 end
 

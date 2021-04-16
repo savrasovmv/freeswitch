@@ -7,8 +7,8 @@ local req_destination_number   = session:getVariable("destination_number");
 local req_domain   = session:getVariable("domain");
 local req_recordings_dir   = session:getVariable("recordings_dir");
 local req_caller_id_number   = session:getVariable("caller_id_number");
-freeswitch.consoleLog("DEBUG", "req_destination_number: " .. req_destination_number .. "\n")
-freeswitch.consoleLog("WARNDEBUGING", "req_domain: " .. req_domain .. "\n")
+freeswitch.consoleLog("INFO", "req_destination_number: " .. req_destination_number .. "\n")
+freeswitch.consoleLog("WARNINFOING", "req_domain: " .. req_domain .. "\n")
 
 local records = require("records")
 
@@ -41,16 +41,16 @@ local sql_query = string.format([[  SELECT
 
 assert(dbh:query(sql_query, getgroup))
 
-freeswitch.consoleLog("DEBUG", "users: " .. users .. "\n")
+freeswitch.consoleLog("INFO", "users: " .. users .. "\n")
 
 -- Если абонент не найден говорим что не существует, иначе вызываем абонента
 if (users=='') then
-    freeswitch.consoleLog("DEBUG", "Абонент с номером "..req_destination_number.." не найден\n")
+    freeswitch.consoleLog("INFO", "Абонент с номером "..req_destination_number.." не найден\n")
     session:answer()
     prompt ="ivr" ..pathsep .."ivr-you_have_dialed_an_invalid_extension.wav"
     session:streamFile(prompt)
 else
-    freeswitch.consoleLog("DEBUG", "Вызов абонента по номерам: "..users.."\n")
+    freeswitch.consoleLog("INFO", "Вызов абонента по номерам: "..users.."\n")
     
     records.rec() --Запись разговоров, если включена у абонента
     session:execute("bridge", users);

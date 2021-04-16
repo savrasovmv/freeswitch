@@ -45,8 +45,9 @@
 
     <!-- Languages -->
     <load module="mod_lua"/>
-
-
+    <!-- Озвучивание текста -->
+    <load module="mod_say_ru"/> 
+    
     <!-- Third party modules -->
 
   </modules>

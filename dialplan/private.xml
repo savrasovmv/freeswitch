@@ -1,0 +1,25 @@
+<include>
+  <context name="private">
+    
+    <X-PRE-PROCESS cmd="include" data="private/*.xml"/>
+    
+
+
+
+    <extension name="local-account-hello">
+      <condition field="destination_number" expression="^3000$">
+        <action application="answer"/>
+        <action application="playback" data="local_stream://moh"/>
+      </condition>
+    </extension>
+
+    <extension name="echo-test">
+      <condition field="destination_number" expression="^9000$">
+        <action application="answer"/>
+        <action application="echo"/>
+      </condition>
+    </extension>
+
+
+  </context>
+</include>

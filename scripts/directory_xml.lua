@@ -1,7 +1,7 @@
 -- directory_xml.lua
 
 freeswitch.consoleLog("notice","Формирование абонента для directory")
--- freeswitch.consoleLog("notice", "Debug from directory_xml.lua, provided params:\n" .. params:serialize() .. "\n")
+-- freeswitch.consoleLog("notice", "INFO from directory_xml.lua, provided params:\n" .. params:serialize() .. "\n")
 
 local req_domain = params:getHeader("domain")
 local req_key    = params:getHeader("key")
@@ -54,7 +54,7 @@ dbh = db.connect()
                   </domain>
                 </section>
               </document>]]
-        freeswitch.consoleLog("DEBUG","XML directory для абонента "..req_user.." - "..u.username.." сформирован")
+        freeswitch.consoleLog("INFO","XML directory для абонента "..req_user.." - "..u.username.." сформирован")
   end))
 --end
 

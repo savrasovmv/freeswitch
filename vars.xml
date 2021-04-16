@@ -26,6 +26,7 @@
   <!-- Кталоги -->
   <X-PRE-PROCESS cmd="set" data="recordings_dir=/home/user/records"/>
   <X-PRE-PROCESS cmd="set" data="lua_scripts_dir=/etc/freeswitch/scripts"/>
+  <!-- <X-PRE-PROCESS cmd="set" data="script_dir=/etc/freeswitch/scripts"/> -->
   <!-- <Z-PRE-PROCESS cmd="set" data="lua_scripts_dir=/usr/share/freeswitch/scripts"/> -->
 
   <!--Использовать криптографические наборы -->

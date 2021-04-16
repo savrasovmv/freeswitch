@@ -14,7 +14,11 @@
       <control action="vol listen up" digits="6"/>
       <control action="vol listen zero" digits="5"/>
       <control action="vol listen dn" digits="4"/>
-      <control action="hangup" digits="#"/>
+      <!-- <control action="hangup" digits="#"/> -->
+      <!-- При нажатии # озвучит кол-во участников в конференции 
+      ANNOUNCE_CONF_COUNT_PRIVATE определен в диалплане
+      -->
+      <control action="execute_application" digits="#" data="execute_extension ANNOUNCE_CONF_COUNT_PRIVATE XML default"/>
     </group>
   </caller-controls>
 
@@ -51,17 +55,21 @@
       <!-- <param name="tts-engine" value="cepstral"/> -->
       <!-- TTS Voice to use -->
       <!-- <param name="tts-voice" value="david"/> -->
-      <!-- <param name="announce-count" value="0"/> -->
+      <!-- <param name="announce-count" value="1"/> -->
 
       <!-- If TTS is enabled all audio-file params beginning with -->
       <!-- 'say:' will be considered text to say with TTS -->
       <!-- Override the default path here, after which you use relative paths in the other sound params -->
       <!-- Note: The default path is the conference's first caller's sound_prefix -->
-      <!--<param name="sound-prefix" value="$${sounds_dir}/en/us/callie"/>-->
+      <!-- <param name="sound-prefix" value="$${sounds_dir}/en/us/callie"/> -->
       <!-- File to play to acknowledge succees -->
-      <!--<param name="ack-sound" value="beep.wav"/>-->
+      <!-- <param name="ack-sound" value="beep.wav"/> -->
       <!-- File to play to acknowledge failure -->
-      <!--<param name="nack-sound" value="beeperr.wav"/>-->
+      <!-- <param name="nack-sound" value="beeperr.wav"/> -->
+
+
+
+
       <!-- File to play to acknowledge muted -->
       <param name="muted-sound" value="conference/conf-muted.wav"/>
       <!-- File to play to acknowledge unmuted -->
@@ -103,9 +111,9 @@
       <param name="comfort-noise" value="true"/>
       <!-- Uncomment auto-record to toggle recording every conference call. -->
       <!-- Another valid value is   shout://user:pass@server.com/live.mp3   -->
-      <!--
-      <param name="auto-record" value="$${recordings_dir}/${conference_name}_${strftime(%Y-%m-%d-%H-%M-%S)}.wav"/>
-      -->
+      
+      <!-- <param name="auto-record" value="$${recordings_dir}/${conference_name}_${strftime(%Y-%m-%d-%H-%M-%S)}.wav"/> -->
+     
 
       <!-- IVR digit machine timeouts -->
       <!-- How much to wait between DTMF digits to match caller-controls -->
@@ -120,12 +128,11 @@
       <!-- <param name="conference-flags" value="audio-always"/> -->
     </profile>
 
-    <profile name="wideband">
+    <profile name="default-rec">
       <param name="domain" value="$${domain}"/>
-      <param name="rate" value="16000"/>
+      <param name="rate" value="8000"/>
       <param name="interval" value="20"/>
       <param name="energy-level" value="300"/>
-      <!--<param name="sound-prefix" value="$${sounds_dir}/en/us/callie"/>-->
       <param name="muted-sound" value="conference/conf-muted.wav"/>
       <param name="unmuted-sound" value="conference/conf-unmuted.wav"/>
       <param name="alone-sound" value="conference/conf-alone.wav"/>
@@ -141,8 +148,54 @@
       <param name="caller-id-name" value="$${outbound_caller_name}"/>
       <param name="caller-id-number" value="$${outbound_caller_id}"/>
       <param name="comfort-noise" value="true"/>
-      <!--<param name="tts-engine" value="flite"/>-->
-      <!--<param name="tts-voice" value="kal16"/>-->
+      <!-- Запись конференции -->
+      <param name="auto-record" value="$${recordings_dir}/${strftime(%Y-%m-%d__%H-%M-%S)}__${conference_name}__conference.wav"/>
+    </profile>
+
+    <profile name="wideband">
+      <param name="domain" value="$${domain}"/>
+      <param name="rate" value="16000"/>
+      <param name="interval" value="20"/>
+      <param name="energy-level" value="300"/>
+      <param name="muted-sound" value="conference/conf-muted.wav"/>
+      <param name="unmuted-sound" value="conference/conf-unmuted.wav"/>
+      <param name="alone-sound" value="conference/conf-alone.wav"/>
+      <param name="moh-sound" value="$${hold_music}"/>
+      <param name="enter-sound" value="tone_stream://%(200,0,500,600,700)"/>
+      <param name="exit-sound" value="tone_stream://%(500,0,300,200,100,50,25)"/>
+      <param name="kicked-sound" value="conference/conf-kicked.wav"/>
+      <param name="locked-sound" value="conference/conf-locked.wav"/>
+      <param name="is-locked-sound" value="conference/conf-is-locked.wav"/>
+      <param name="is-unlocked-sound" value="conference/conf-is-unlocked.wav"/>
+      <param name="pin-sound" value="conference/conf-pin.wav"/>
+      <param name="bad-pin-sound" value="conference/conf-bad-pin.wav"/>
+      <param name="caller-id-name" value="$${outbound_caller_name}"/>
+      <param name="caller-id-number" value="$${outbound_caller_id}"/>
+      <param name="comfort-noise" value="true"/>
+    </profile>
+
+    <profile name="wideband-rec">
+      <param name="domain" value="$${domain}"/>
+      <param name="rate" value="16000"/>
+      <param name="interval" value="20"/>
+      <param name="energy-level" value="300"/>
+      <param name="muted-sound" value="conference/conf-muted.wav"/>
+      <param name="unmuted-sound" value="conference/conf-unmuted.wav"/>
+      <param name="alone-sound" value="conference/conf-alone.wav"/>
+      <param name="moh-sound" value="$${hold_music}"/>
+      <param name="enter-sound" value="tone_stream://%(200,0,500,600,700)"/>
+      <param name="exit-sound" value="tone_stream://%(500,0,300,200,100,50,25)"/>
+      <param name="kicked-sound" value="conference/conf-kicked.wav"/>
+      <param name="locked-sound" value="conference/conf-locked.wav"/>
+      <param name="is-locked-sound" value="conference/conf-is-locked.wav"/>
+      <param name="is-unlocked-sound" value="conference/conf-is-unlocked.wav"/>
+      <param name="pin-sound" value="conference/conf-pin.wav"/>
+      <param name="bad-pin-sound" value="conference/conf-bad-pin.wav"/>
+      <param name="caller-id-name" value="$${outbound_caller_name}"/>
+      <param name="caller-id-number" value="$${outbound_caller_id}"/>
+      <param name="comfort-noise" value="true"/>
+      <!-- Запись конференции -->
+      <param name="auto-record" value="$${recordings_dir}/${strftime(%Y-%m-%d__%H-%M-%S)}__${conference_name}__conference.wav"/>
     </profile>
 
     <profile name="ultrawideband">
@@ -166,8 +219,9 @@
       <param name="caller-id-name" value="$${outbound_caller_name}"/>
       <param name="caller-id-number" value="$${outbound_caller_id}"/>
       <param name="comfort-noise" value="true"/>
-      <!--<param name="tts-engine" value="flite"/>-->
-      <!--<param name="tts-voice" value="kal16"/>-->
+
+      <param name="tts-engine" value="flite"/>
+      <param name="tts-voice" value="kal16"/>
     </profile>
 
     <profile name="cdquality">

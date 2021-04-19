@@ -49,6 +49,9 @@ if (users=='') then
     session:streamFile(prompt)
 
 else
+  session:setVariable("hangup_after_bridge","true");
+  session:setVariable("continue_on_fail","true");
+  session:setVariable("ignore_early_media","true");
   freeswitch.consoleLog("INFO", "Вызов абонентов группы по номерам: "..users.."\n")
   records.rec() --Запись разговоров, если включена у абонента
   records.rec_group() --Запись разговоров, если включена у группы

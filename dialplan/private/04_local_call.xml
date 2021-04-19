@@ -1,22 +1,28 @@
 <include>
+     <!-- Диалплан -->
+    <extension name="Local dialplan">
+      <condition field="destination_number" expression="^(\d{2}|\d{3}|\d{4})$">
+          <action application="lua" data="$${lua_scripts_dir}/dialplan.lua"/>
+      </condition>
+    </extension>
 
     <!-- Вызов группы -->
-    <extension name="Call group">
+    <!-- <extension name="Call group">
       <condition field="destination_number" expression="^(99\d{2}|88\d{2})$">
           <action application="set" data="hangup_after_bridge=true"/>
           <action application="set" data="continue_on_fail=true"/>
           <action application="set" data="ignore_early_media=true"/>
           <action application="lua" data="$${lua_scripts_dir}/call_local_groupcall.lua"/>
       </condition>
-    </extension>
+    </extension> -->
 
 
     <!-- конференции -->
-    <extension name="Conferences">
+    <!-- <extension name="Conferences">
       <condition field="destination_number" expression="^(15\d{2})$">
         <action application="lua" data="$${lua_scripts_dir}/conference.lua"/>
       </condition>
-    </extension>
+    </extension> -->
 
     <!-- Озвучивание количество участников конференции. Нажать # -->
     <extension name="Announce Conf Count (Inline)">
@@ -30,14 +36,14 @@
 
 
     <!-- Внутренние вызовы -->
-    <extension name="Local call">
+    <!-- <extension name="Local call">
       <condition field="destination_number" expression="^(\d{3})$">
           <action application="set" data="hangup_after_bridge=true"/>
           <action application="set" data="continue_on_fail=true"/>
           <action application="set" data="ignore_early_media=true"/>
           <action application="lua" data="$${lua_scripts_dir}/call_local_number.lua"/>
       </condition>
-    </extension>
+    </extension> -->
 
 
     

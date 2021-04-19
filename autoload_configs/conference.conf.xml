@@ -18,7 +18,7 @@
       <!-- При нажатии # озвучит кол-во участников в конференции 
       ANNOUNCE_CONF_COUNT_PRIVATE определен в диалплане
       -->
-      <control action="execute_application" digits="#" data="execute_extension ANNOUNCE_CONF_COUNT_PRIVATE XML default"/>
+      <control action="execute_application" digits="#" data="execute_extension ANNOUNCE_CONF_COUNT_PRIVATE XML private"/>
     </group>
   </caller-controls>
 

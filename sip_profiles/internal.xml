@@ -1,4 +1,11 @@
 <profile name="internal">
+  <!-- Тест  -->
+  <aliases>
+    <alias name="default"/>
+  </aliases>
+  <domains>
+      <domain name="all" alias="false" parse="true"/>
+  </domains>
   <settings>
   <!-- Заменить на true для продакшена!! -->
     <param name="auth-calls" value="true"/>
@@ -10,7 +17,7 @@
     <param name="sip-trace" value="no"/>
 
     <param name="dialplan" value="XML"/>
-    <param name="context" value="default"/>
+    <param name="context" value="private"/>
     <param name="codec-prefs" value="$${global_codec_prefs}"/>
 
     <param name="rtp-ip" value="$${local_ip_v4}"/>
@@ -18,6 +25,9 @@
     <param name="ext-rtp-ip" value="auto-nat"/>
     <param name="ext-sip-ip" value="auto-nat"/>
     <param name="sip-port" value="$${internal_sip_port}"/>
+
+
+    
     
     <!-- PG connect -->
     <param name="odbc-dsn" value="pgsql://hostaddr=$${pg_host} dbname=$${pg_db}  user=$${pg_user} password=$${pg_password}"/>

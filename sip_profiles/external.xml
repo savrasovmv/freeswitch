@@ -1,7 +1,15 @@
 <profile name="external">
   <gateways>
-    <X-PRE-PROCESS cmd="include" data="external/*.xml"/>
+    <Z-PRE-PROCESS cmd="include" data="external/*.xml"/>
   </gateways>
+
+  <!-- Тест  -->
+  <!-- <aliases>
+    <alias name="default"/>
+  </aliases>
+  <domains>
+      <domain name="all" alias="false" parse="true"/>
+  </domains> -->
 
   <settings>
     <param name="auth-calls" value="false"/>
@@ -17,5 +25,6 @@
     <param name="ext-rtp-ip" value="auto-nat"/>
     <param name="ext-sip-ip" value="auto-nat"/>
     <param name="sip-port" value="$${external_sip_port}"/>
+    
   </settings>
 </profile>

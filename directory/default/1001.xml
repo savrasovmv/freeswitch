@@ -1,5 +1,19 @@
 <include>
   <user id="1001">
+    <gateways>
+      <gateway name="g110">
+        <param name="username" value="110p2"/>
+        <param name="password" value="Gfhjkm12@"/>
+        <param name="proxy" value="192.168.1.11"/>
+        <param name="register" value="true"/>
+        <param name="context" value="private"/>
+        <variables>
+          <variable name="inbound_var_name"  value="this is inbound"  direction="inbound"/>
+          <variable name="outbound_var_name" value="this is outbound" direction="outbound"/>
+          <variable name="both_var_name"     value="this on any direction"/>
+        </variables>
+      </gateway>
+    </gateways>
     <params>
       <param name="password" value="$${default_password}"/>
       <param name="vm-password" value="1001"/>
@@ -7,12 +21,14 @@
     <variables>
       <variable name="toll_allow" value="domestic,international,local"/>
       <variable name="accountcode" value="1001"/>
-      <variable name="user_context" value="default"/>
-      <variable name="effective_caller_id_name" value="Саврасов Михаил Владимирович"/>
+      <variable name="user_context" value="private"/>
+      <variable name="effective_caller_id_name" value="Savrasov"/>
       <variable name="effective_caller_id_number" value="1001"/>
       <variable name="outbound_caller_id_name" value="$${outbound_caller_name}"/>
       <variable name="outbound_caller_id_number" value="$${outbound_caller_id}"/>
       <variable name="callgroup" value="techsupport"/>
+      <variable name="sip-register-gateway" value="g110"/>
     </variables>
+    
   </user>
 </include>

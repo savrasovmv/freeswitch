@@ -1,0 +1,73 @@
+<include>
+     <!-- Диалплан -->
+    <!-- <extension name="Local dialplan">
+      <condition field="destination_number" expression="^(\d{4})$">
+          <action application="bridge" data="user/$1"/> 
+      </condition>
+    </extension>
+
+    <extension name="Local222 dialplan">
+      <condition field="destination_number" expression="^(\d{3}p2)$">
+          <action application="bridge" data="user/$1"/> 
+      </condition>
+    </extension>
+
+     <extension name="VSE">
+        <condition field="caller_id_number" expression="^(\d{3}p2)$">
+            <action application="set" data="ggg=$1"/>
+        </condition>
+      <condition field="destination_number" expression="^(\d{3})$">
+          <action application="bridge" data="sofia/gateway/${ggg}/$1"/> 
+      </condition>
+      
+    </extension>
+    
+    <extension name="local.kerio">
+    <condition field="caller_id_number" expression="1001"/>
+    <condition field="destination_number" expression="^(\d{3})$">
+        <action application="bridge" data="sofia/gateway/110p2/$1"/>
+    </condition>
+  </extension> -->
+
+    <!-- Вызов группы -->
+    <!-- <extension name="Call group">
+      <condition field="destination_number" expression="^(99\d{2}|88\d{2})$">
+          <action application="set" data="hangup_after_bridge=true"/>
+          <action application="set" data="continue_on_fail=true"/>
+          <action application="set" data="ignore_early_media=true"/>
+          <action application="lua" data="$${lua_scripts_dir}/call_local_groupcall.lua"/>
+      </condition>
+    </extension> -->
+
+
+    <!-- конференции -->
+    <!-- <extension name="Conferences">
+      <condition field="destination_number" expression="^(15\d{2})$">
+        <action application="lua" data="$${lua_scripts_dir}/conference.lua"/>
+      </condition>
+    </extension> -->
+
+    <!-- Озвучивание количество участников конференции. Нажать # -->
+    <extension name="Announce Conf Count (Inline)">
+      <condition field="destination_number" expression="^ANNOUNCE_CONF_COUNT_PRIVATE$">
+        <action application="set" data="conf_count=${conference ${conference_name} list count}"/>
+        <action application="log" data="INFO ${conf_count}"/>
+        <action application="say" data="ru number pronounced ${conf_count}"/>
+      </condition>
+    </extension>
+
+
+
+    <!-- Внутренние вызовы -->
+    <!-- <extension name="Local call">
+      <condition field="destination_number" expression="^(\d{3})$">
+          <action application="set" data="hangup_after_bridge=true"/>
+          <action application="set" data="continue_on_fail=true"/>
+          <action application="set" data="ignore_early_media=true"/>
+          <action application="lua" data="$${lua_scripts_dir}/call_local_number.lua"/>
+      </condition>
+    </extension> -->
+
+
+    
+</include>

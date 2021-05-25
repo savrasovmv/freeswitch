@@ -1,5 +1,11 @@
 <include>
   <context name="public">
+      <extension name="public_extensions">
+          <condition field="destination_number" expression="1100">
+              <action application="transfer" data="1001 XML private"/>
+          </condition>
+        </extension>
     <X-PRE-PROCESS cmd="include" data="public/*.xml"/>
+        
   </context>
 </include>

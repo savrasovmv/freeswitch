@@ -1,5 +1,20 @@
 <include>
      <!-- Диалплан -->
+    <extension name="Local222 dialplan">
+      <condition field="destination_number" expression="^(\d{2,3}rc)$">
+          <action application="bridge" data="user/$1"/> 
+      </condition>
+    </extension>
+    
+     <extension name="VSE">
+        <condition field="caller_id_number" expression="^(\d{2,3}rc)$">
+            <action application="set" data="gw_name=$1"/>
+        </condition>
+      <condition field="destination_number" expression="^(\d+)$">
+          <action application="bridge" data="sofia/gateway/${gw_name}/$1"/> 
+      </condition>
+      
+    </extension>
     <!-- <extension name="Local dialplan">
       <condition field="destination_number" expression="^(\d{4})$">
           <action application="bridge" data="user/$1"/> 

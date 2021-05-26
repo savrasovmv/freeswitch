@@ -6,6 +6,9 @@
   <domains>
       <domain name="all" alias="false" parse="true"/>
   </domains>
+  <gateways>
+    <X-PRE-PROCESS cmd="include" data="internal/*.xml"/>
+  </gateways>
   <settings>
   <!-- Заменить на true для продакшена!! -->
     <param name="auth-calls" value="true"/>

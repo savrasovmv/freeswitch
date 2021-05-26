@@ -9,6 +9,8 @@ local req_user   = params:getHeader("user")
 local req_group_name   = params:getHeader("group_name")
 local req_action   = params:getHeader("action")
 
+freeswitch.consoleLog("notice","req_user "..req_user.."'")
+
 local db = require("db_odoo")
 dbh = db.connect()
 
@@ -44,11 +46,10 @@ dbh = db.connect()
                       </params>
                       <variables>
                         <variable name="user_context" value="]] .. u.user_context .. [["/>
-                  <variable name="effective_caller_id_name" value="]] .. u.name .. [["/>
-                  <variable name="effective_caller_id_number" value="]] .. u.number .. [["/>
-                  <variable name="outbound_caller_id_name" value="]] .. u.name .. [["/>
-                  <variable name="outbound_caller_id_number" value="]] .. u.number .. [["/>
-                      
+                        <variable name="effective_caller_id_name" value="]] .. u.name .. [["/>
+                        <variable name="effective_caller_id_number" value="]] .. u.number .. [["/>
+                        <variable name="outbound_caller_id_name" value="]] .. u.name .. [["/>
+                        <variable name="outbound_caller_id_number" value="]] .. u.number .. [["/>
                       </variables>
                       
                     </user>
@@ -60,3 +61,50 @@ dbh = db.connect()
 --end
 
 freeswitch.consoleLog("notice","Конец Формирование абонента для directory")
+
+
+
+-- assert (dbh:query(dir_query, function(u)
+--   XML_STRING =
+--             [[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+--             <document type="freeswitch/xml">
+--               <section name="directory">
+--                 <domain name="]] .. u.domain .. [[">
+--                         <user id="]] .. u.regname .. [[" cidr="]]
+--                       .. u.cidr .. [[" number-alias="]] .. u.number .. [[">
+
+--                       <gateways>
+--                       <gateway name="]] .. u.regname .. [[">
+--                         <param name="username" value="]] .. u.regname .. [["/>
+--                         <param name="password" value="Gfhjkm12@"/>
+--                         <param name="proxy" value="192.168.1.11"/>
+--                         <param name="register" value="true"/>
+--                         <param name="context" value="]] .. u.user_context .. [["/>
+--                         <variables>
+--                           <variable name="inbound_var_name"  value="this is inbound"  direction="inbound"/>
+--                           <variable name="outbound_var_name" value="this is outbound" direction="outbound"/>
+--                           <variable name="both_var_name"     value="this on any direction"/>
+--                         </variables>
+--                       </gateway>
+--                     </gateways>
+--                     <params>
+--                       <param name="password" value="]] .. u.password .. [["/>
+--                       <param name="dial-string" value="{sip_secure_media=${regex(${sofia_contact(${dialed_user}@${dialed_domain})}|transport=tls)},presence_id=${dialed_user}@${dialed_domain}}${sofia_contact(${dialed_user}@${dialed_domain})}"/>
+--                       <param name="jsonrpc-allowed-methods" value="verto"/>
+--                       <param name="jsonrpc-allowed-event-channels" value="demo,conference"/>
+--                     </params>
+--                     <variables>
+--                       <variable name="user_context" value="]] .. u.user_context .. [["/>
+--                       <variable name="effective_caller_id_name" value="]] .. u.name .. [["/>
+--                       <variable name="effective_caller_id_number" value="]] .. u.number .. [["/>
+--                       <variable name="outbound_caller_id_name" value="]] .. u.name .. [["/>
+--                       <variable name="outbound_caller_id_number" value="]] .. u.number .. [["/>
+--                       <variable name="sip-register-gateway" value="]] .. u.regname .. [["/>    
+--                     </variables>
+                    
+--                   </user>
+--                 </domain>
+--               </section>
+--             </document>]]
+--       freeswitch.consoleLog("notice","XML directory для абонента "..req_user.." - "..u.name.." сформирован")
+-- end))

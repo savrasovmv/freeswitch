@@ -1,6 +1,6 @@
 <include>
   <user id="1001">
-    <gateways>
+    <!-- <gateways>
       <gateway name="g110">
         <param name="username" value="110p2"/>
         <param name="password" value="Gfhjkm12@"/>
@@ -13,7 +13,7 @@
           <variable name="both_var_name"     value="this on any direction"/>
         </variables>
       </gateway>
-    </gateways>
+    </gateways> -->
     <params>
       <param name="password" value="$${default_password}"/>
       <param name="vm-password" value="1001"/>
@@ -27,7 +27,7 @@
       <variable name="outbound_caller_id_name" value="$${outbound_caller_name}"/>
       <variable name="outbound_caller_id_number" value="$${outbound_caller_id}"/>
       <variable name="callgroup" value="techsupport"/>
-      <variable name="sip-register-gateway" value="g110"/>
+      <!-- <variable name="sip-register-gateway" value="g110"/> -->
     </variables>
     
   </user>

@@ -23,6 +23,10 @@
   <X-PRE-PROCESS cmd="set" data="pg_user=freeswitch"/>
   <X-PRE-PROCESS cmd="set" data="pg_password='freeswitch'"/>
 
+
+   <!-- Подключение к Kerio Operator -->
+  <X-PRE-PROCESS cmd="set" data="kerio_host=192.168.1.11"/>
+
   <!-- Кталоги -->
   <X-PRE-PROCESS cmd="set" data="recordings_dir=/home/user/records"/>
   <X-PRE-PROCESS cmd="set" data="lua_scripts_dir=/etc/freeswitch/scripts"/>

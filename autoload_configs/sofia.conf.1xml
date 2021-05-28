@@ -6,6 +6,8 @@
   </global_settings>
 
   <profiles>
+    <Z-PRE-PROCESS cmd="include" data="../sip_profiles/*.xml"/>
     <X-PRE-PROCESS cmd="include" data="../sip_profiles/*.xml"/>
+    
   </profiles>
 </configuration>

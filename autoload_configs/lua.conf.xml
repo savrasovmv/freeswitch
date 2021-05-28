@@ -2,10 +2,10 @@
   <settings>
     <param name="module-directory" value="$${lua_scripts_dir}/?.lua"/>
     <param name="script-directory" value="$${lua_scripts_dir}/?.lua"/>
-    <param name="xml-handler-script" value="$${lua_scripts_dir}/directory_xml.lua"/>
-    <param name="xml-handler-bindings" value="directory"/>
-    <!-- <param name="xml-handler-script" value="$${lua_scripts_dir}/gateway.lua"/>
-    <param name="xml-handler-bindings" value="sip_profiles"/> -->
+    <!-- <param name="xml-handler-script" value="$${lua_scripts_dir}/directory_xml.lua"/>
+    <param name="xml-handler-bindings" value="directory"/> -->
+    <param name="xml-handler-script" value="$${lua_scripts_dir}/configuration.lua"/>
+    <param name="xml-handler-bindings" value="directory|configuration"/>
 	
   </settings>
 </configuration>

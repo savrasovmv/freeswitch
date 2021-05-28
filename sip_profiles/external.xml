@@ -1,6 +1,7 @@
 <profile name="external">
   <gateways>
-    <X-PRE-PROCESS cmd="include" data="external/*.xml"/>
+    <Z-PRE-PROCESS cmd="include" data="external/*.xml"/>
+    <X-PRE-PROCESS cmd="exec" data="gateway.lua"/>
   </gateways>
 
   <!-- Тест  -->

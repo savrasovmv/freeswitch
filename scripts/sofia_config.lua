@@ -73,6 +73,9 @@ if (key_value=='sofia.conf') then
                                                         <param name="ext-rtp-ip" value="auto-nat"/>
                                                         <param name="ext-sip-ip" value="auto-nat"/>internal_sip_port
                                                         <param name="sip-port" value="]] .. internal_sip_port .. [["/>
+
+                                                        <param name="tls-cert-dir" value="/usr/local/freeswitch/certs"/>
+                                                        <param name="wss-binding" value="]] .. local_ip_v4 .. [[:7443"/>
                                                         
                                                        
                                                     </settings>

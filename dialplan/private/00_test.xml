@@ -15,6 +15,15 @@
       </condition>
       
     </extension>
+
+    <!-- gateway_var_name переменная задается в gateway 
+    При переводе звонка, звонок отправляется на шлюз от куда пришел вызов -->
+    <extension name="VSE TRANSFER">
+        <condition field="${gateway_var_name}" expression="^(\d{2,3}rc)$">
+          <action application="bridge" data="sofia/gateway/${gateway_var_name}/${destination_number}"/> 
+      </condition>
+      
+    </extension>
     <!-- <extension name="Local dialplan">
       <condition field="destination_number" expression="^(\d{4})$">
           <action application="bridge" data="user/$1"/> 

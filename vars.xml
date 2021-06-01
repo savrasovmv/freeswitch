@@ -50,8 +50,8 @@
 
 
   <!-- STUN использовать только IP адреса -->
-  <X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=autonat:109.194.174.140"/>
-  <X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=autonat:109.194.174.140"/>
+  <X-PRE-PROCESS cmd="stun-set" data="external_rtp_ip=autonat:192.168.1.8"/>
+  <X-PRE-PROCESS cmd="stun-set" data="external_sip_ip=autonat:192.168.1.8"/>
 
   <!-- Защита от петли -->
   <X-PRE-PROCESS cmd="set" data="unroll_loops=true"/>

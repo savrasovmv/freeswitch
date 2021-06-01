@@ -71,11 +71,13 @@ if (key_value=='sofia.conf') then
                                                         <param name="rtp-ip" value="]] .. local_ip_v4 .. [["/>
                                                         <param name="sip-ip" value="]] .. local_ip_v4 .. [["/>
                                                         <param name="ext-rtp-ip" value="auto-nat"/>
-                                                        <param name="ext-sip-ip" value="auto-nat"/>internal_sip_port
+                                                        <param name="ext-sip-ip" value="auto-nat"/>
                                                         <param name="sip-port" value="]] .. internal_sip_port .. [["/>
 
-                                                        <param name="tls-cert-dir" value="/usr/local/freeswitch/certs"/>
-                                                        <param name="wss-binding" value="]] .. local_ip_v4 .. [[:7443"/>
+                                                        <param name="tls-cert-dir" value="/etc/freeswitch/certs"/>
+                                                        <param name="wss-binding" value=":7443"/>
+
+                                                        <param name="multiple-registrations" value="true"/> 
                                                         
                                                        
                                                     </settings>
@@ -93,6 +95,11 @@ if (key_value=='sofia.conf') then
                                                     <param name="password" value="]] .. u.password .. [["/>
                                                     <param name="proxy" value="]] .. kerio_host .. [["/>
                                                     <param name="register" value="true"/>
+                                                    <variables>
+                                                        <!-- gateway_var_name переменная нужна при переводе звонков 
+                                                        При переводе звонка, звонок отправляется на шлюз от куда пришел вызов -->
+                                                        <variable name="gateway_var_name"  value="]] .. u.regname .. [[" />
+                                                    </variables>
                                                 </gateway>
 
 

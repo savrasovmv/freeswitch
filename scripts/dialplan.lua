@@ -5,8 +5,12 @@ freeswitch.consoleLog("notice","Определение направления в
 
 local req_destination_number   = session:getVariable("destination_number");
 local req_domain   = session:getVariable("domain");
+local caller_id_number   = session:getVariable("caller_id_number");
+local gateway_var_name   = session:getVariable("gateway_var_name");
 freeswitch.consoleLog("INFO", "req_destination_number: " .. req_destination_number .. "\n")
 freeswitch.consoleLog("INFO", "req_domain: " .. req_domain .. "\n")
+freeswitch.consoleLog("INFO", "caller_id_number: " .. caller_id_number .. "\n")
+freeswitch.consoleLog("INFO", "gateway_var_name: " .. gateway_var_name .. "\n")
 
 local db = require("db")
 dbh = db.connect()
